@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="relative">
       <Search {...{ value, setValue }} />
-      <Table {...{ users }} onRefresh={() => fetchUser()} />
+      <Table {...{ users, value }} onRefresh={() => fetchUser()} />
       {status && <Overlay message="Refreshing..." />}
     </div>
   );

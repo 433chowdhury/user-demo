@@ -4,9 +4,13 @@ import Button from "./Button";
 import Td from "./Td";
 import Th from "./Th";
 
-type Props = { users: UsersState["users"]; onRefresh?: () => void };
+type Props = {
+  users: UsersState["users"];
+  onRefresh?: () => void;
+  value: string;
+};
 
-function Table({ users, onRefresh }: Props) {
+function Table({ users, onRefresh, value }: Props) {
   return (
     <div className="p-20">
       <div className="flex justify-end mb-10">
@@ -25,24 +29,35 @@ function Table({ users, onRefresh }: Props) {
           </tr>
         </thead>
         <tbody className='before:content-["_"] before:block before:pt-7 before:leading-10'>
-          {users.map((user) => (
-            <tr key={user.id} className="group">
-              <Td>{user.id}</Td>
-              <Td>{user.name}</Td>
-              <Td>{user.username}</Td>
-              <Td>
-                <a
-                  href={`https://${user.website}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-cyan-600 hover:underline"
-                >
-                  {user.website}
-                </a>
-              </Td>
-              <Td>{user.company.name}</Td>
-            </tr>
-          ))}
+          {users.map((user) => {
+            if (
+              value !== "" &&
+              !(
+                user.name.toLowerCase().includes(value.toLowerCase()) ||
+                user.username.toLowerCase().includes(value.toLowerCase())
+              )
+            )
+              return null;
+
+            return (
+              <tr key={user.id} className="group">
+                <Td>{user.id}</Td>
+                <Td>{user.name}</Td>
+                <Td>{user.username}</Td>
+                <Td>
+                  <a
+                    href={`https://${user.website}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-cyan-600 hover:underline"
+                  >
+                    {user.website}
+                  </a>
+                </Td>
+                <Td>{user.company.name}</Td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
