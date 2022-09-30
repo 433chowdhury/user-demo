@@ -8,12 +8,12 @@ type Props = {
 
 function Search({ value, setValue }: Props) {
   return (
-    <div className="px-48 pt-16 flex justify-center">
-      <div className="relative">
+    <div className="px-40 pt-16 flex justify-center">
+      <div className="relative w-5/12 min-w-[500px] flex justify-center">
         <input
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="Search for users..."
+          placeholder="Search for name/username..."
           className="outline-none rounded-full focus:bg-neutral-200/70 transition-colors duration-300 bg-neutral-200/40 px-10 pr-20 py-5 flex-1 text-neutral-600 text-xl tracking-widest placeholder:tracking-normal"
         />
         <img

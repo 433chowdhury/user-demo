@@ -4,13 +4,15 @@ import Button from "./Button";
 import Td from "./Td";
 import Th from "./Th";
 
-type Props = { users: UsersState["users"] };
+type Props = { users: UsersState["users"]; onRefresh?: () => void };
 
-function Table({ users }: Props) {
+function Table({ users, onRefresh }: Props) {
   return (
     <div className="p-20">
       <div className="flex justify-end mb-10">
-        <Button icon={refresh}>Refresh Table</Button>
+        <Button onClick={onRefresh} icon={refresh}>
+          Refresh Table
+        </Button>
       </div>
       <table className="w-full">
         <thead>
