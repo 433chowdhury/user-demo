@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { refresh } from "../assets/icons";
 import { UsersState } from "../features/users/userSlice";
 import Button from "./Button";
@@ -11,6 +12,13 @@ type Props = {
 };
 
 function Table({ users, onRefresh, value }: Props) {
+  const [searchValue, setSearchValue] = useState(value);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setSearchValue(value), 1200);
+    return () => clearTimeout(timeout);
+  }, [value]);
+
   return (
     <div className="p-20">
       <div className="flex justify-end mb-10">
@@ -31,10 +39,10 @@ function Table({ users, onRefresh, value }: Props) {
         <tbody className='before:content-["_"] before:block before:pt-7 before:leading-10'>
           {users.map((user) => {
             if (
-              value !== "" &&
+              searchValue !== "" &&
               !(
-                user.name.toLowerCase().includes(value.toLowerCase()) ||
-                user.username.toLowerCase().includes(value.toLowerCase())
+                user.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                user.username.toLowerCase().includes(searchValue.toLowerCase())
               )
             )
               return null;
